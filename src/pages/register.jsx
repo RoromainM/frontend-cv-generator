@@ -41,7 +41,7 @@ const Register = () => {
         password: formData.password,
       });
       console.log("Registration successful:", response);
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       console.error("Error during registration:", err);
       setError("Registration failed. Please try again.");
