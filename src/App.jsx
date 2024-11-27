@@ -13,9 +13,6 @@ function App() {
   return (
     <div>
       <Navbar />
-      <nav>
-        <Link to="/register">Register</Link> | <Link to="/login">Login</Link>
-      </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cv" element={<CvList />} />

@@ -24,11 +24,10 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  justify-content: center;  /* Centrer horizontalement */
-  align-items: center;  /* Centrer verticalement */
-  height: 100vh;  /* Prendre la hauteur de la fenêtre */
+  justify-content: center;
+  height: 100vh;
   min-width: 320px;
-  background-color: #242424; /* Optionnel, mais si tu veux garder le fond sombre */
+  background-color: #242424;
 }
 
 h1 {

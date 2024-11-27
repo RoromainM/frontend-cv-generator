@@ -12,7 +12,8 @@ export const Navbar = () => {
                 <NavLink to="/recommendation" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Recommendations</NavLink>
             </div>
             <div>
-                <NavLink to="/login" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Login</NavLink>
+                <NavLink to="/register" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Register</NavLink>  
+                | <NavLink to="/login" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Login</NavLink>
             </div>
         </div>
       </ul>
