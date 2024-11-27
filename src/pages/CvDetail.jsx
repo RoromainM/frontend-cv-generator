@@ -1,44 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCvById, getRecommendationsForCv } from '../service/backendFetch';
+import { getCvById, getRecommendationsForCV } from '../service/backendFetch';
 
 const CvDetail = () => {
-  const { id } = useParams();
-  const [cv, setCv] = useState(null);
-  const [recommendations, setRecommendations] = useState([]);
-  const [loadingRecommendations, setLoadingRecommendations] = useState(true);
-  const [errorRecommendations, setErrorRecommendations] = useState(null);
+const { id } = useParams();
+const [cv, setCv] = useState(null);
+const [v_recommendations, setRecommendations] = useState([]);
+const [error, setError] = useState(null);
 
-  // Charger les détails du CV
-  useEffect(() => {
-    const fetchCvDetails = async () => {
-      try {
-        const data = await getCvById(id);
-        setCv(data);
-      } catch (error) {
-        console.error('Error fetching CV details:', error);
-      }
-    };
+useEffect(() => {
+  const fetchCvDetails = async () => {
+    try {
+      const cvData = await getCvById(id);
+      setCv(cvData);
 
-    fetchCvDetails();
-  }, [id]);
+      const recData = await getRecommendationsForCV(id);
+      setRecommendations(recData);
+    } catch (err) {
+      setError(err.message);  // Capture l'erreur et l'affiche
+    }
+  };
 
-  // Charger les recommandations pour ce CV
-  useEffect(() => {
-    const fetchRecommendations = async () => {
-      try {
-        const data = await getRecommendationsForCv(id);
-        setRecommendations(data);
-      } catch (error) {
-        setErrorRecommendations('Failed to load recommendations');
-        console.error('Error fetching recommendations:', error);
-      } finally {
-        setLoadingRecommendations(false);
-      }
-    };
+  fetchCvDetails();
+}, [id]);
 
-    fetchRecommendations();
-  }, [id]);
 
   if (!cv) {
     return <p>Loading CV...</p>;
@@ -67,30 +52,21 @@ const CvDetail = () => {
         ))}
       </ul>
 
-      <p><strong>Visibility:</strong> {cv.visibilite ? 'Visible' : 'Hidden'}</p>    
+      <p><strong>Visibility:</strong> {cv.visibilite ? 'Visible' : 'Hidden'}</p> 
 
-      {/* Afficher les recommandations */}
       <h3>Recommendations</h3>
-      {loadingRecommendations ? (
-        <p>Loading recommendations...</p>
-      ) : errorRecommendations ? (
-        <p>{errorRecommendations}</p>
+      {recommendations.length > 0 ? (
+        <ul>
+          {v_recommendations.map((rec) => (
+            <li key={rec._id}>
+              <strong>{rec.author.firstname} {rec.author.lastname}:</strong> {rec.content}
+            </li>
+          ))}
+        </ul>
       ) : (
-        <div>
-          {recommendations.length === 0 ? (
-            <p>No recommendations available.</p>
-          ) : (
-            recommendations.map((recommendation) => (
-              <div key={recommendation._id} className="recommendation-card">
-                <h4>By {recommendation.author.firstname} {recommendation.author.lastname}</h4>
-                <p><strong>Content:</strong> {recommendation.content}</p>
-                <p><em>CV: {recommendation.CVNote.personalInfo}</em></p>
-                <p><em>{new Date(recommendation.createdAt).toLocaleString()}</em></p>
-              </div>
-            ))
-          )}
-        </div>
-      )}
+        <p>No recommendations available for this CV.</p>
+      )}   
+
     </div>
   );
 };

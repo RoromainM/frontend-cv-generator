@@ -1,11 +1,12 @@
-const BASE_URL = "https://backend-cv-generator.onrender.com/api";
+//const BASE_URL = "https://backend-cv-generator.onrender.com/api";
+const BASE_URL = "http://localhost:3000/api"
 
 // Fonction générique pour les appels API
 const apiRequest = async (endpoint, options = {}) => {
     try {
         const response = await fetch(`${BASE_URL}/${endpoint}`, options);
         if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         return await response.json();
     } catch (error) {
@@ -66,16 +67,6 @@ export const logoutUser = () =>
         method: "POST",
     });
 
-export const getRecommendationsForCv = async (cvId) => {
-    try {
-      const response = await fetch(`/api/recommendations/cv/${cvId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch recommendations');
-      }
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching recommendations:', error);
-      throw error;
-    }
-  };
-  
+export const getRecommendationsForCV = (CVNoteId) =>
+    apiRequest(`recommandation/${CVNoteId}`);
+    
