@@ -10,6 +10,7 @@ export const Navbar = () => {
                 <NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Home</NavLink>
                 <NavLink to="/cv" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>CV</NavLink>
                 <NavLink to="/recommendation" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Recommendations</NavLink>
+                <NavLink to="/create/cv" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Créer un cv</NavLink>
             </div>
             <div>
                 <NavLink to="/register" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Register</NavLink>  
