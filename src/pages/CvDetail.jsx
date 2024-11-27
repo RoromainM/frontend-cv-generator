@@ -17,7 +17,7 @@ useEffect(() => {
       const recData = await getRecommendationsForCV(id);
       setRecommendations(recData);
     } catch (err) {
-      setError(err.message);  // Capture l'erreur et l'affiche
+      setError(err.message);
     }
   };
 
@@ -55,7 +55,7 @@ useEffect(() => {
       <p><strong>Visibility:</strong> {cv.visibilite ? 'Visible' : 'Hidden'}</p> 
 
       <h3>Recommendations</h3>
-      {recommendations.length > 0 ? (
+      {v_recommendations.length > 0 ? (
         <ul>
           {v_recommendations.map((rec) => (
             <li key={rec._id}>
