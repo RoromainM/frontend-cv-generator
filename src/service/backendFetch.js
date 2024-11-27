@@ -59,3 +59,23 @@ export const loginUser = (userData) =>
         },
         body: JSON.stringify(userData),
     });
+      
+
+export const logoutUser = () =>
+    apiRequest("auth/logout", {
+        method: "POST",
+    });
+
+export const getRecommendationsForCv = async (cvId) => {
+    try {
+      const response = await fetch(`/api/recommendations/cv/${cvId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch recommendations');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching recommendations:', error);
+      throw error;
+    }
+  };
+  
