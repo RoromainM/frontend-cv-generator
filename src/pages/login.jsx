@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../service/backendFetch";
-import { AuthContext } from "../context/AuthContext"; // import the context
+import { AuthContext } from "../context/AuthContext";
 import FormInput from "../components/FormInput";
 
 const Login = () => {
@@ -13,7 +13,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // use context to access the login method
+  const { login } = useContext(AuthContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +32,6 @@ const Login = () => {
       const response = await loginUser(formData);
 
       if (response.success) {
-        // Use the login method from AuthContext
         login({ token: response.token });
 
         console.log("Login successful, token stored:", response.token);

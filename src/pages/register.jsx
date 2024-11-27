@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { registerUser } from "../service/backendFetch";
 import FormInput from "../components/FormInput";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,8 @@ const Register = () => {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -32,13 +35,13 @@ const Register = () => {
     setLoading(true);
     try {
       const response = await registerUser({
-        firstname: formData.firstname,  // Envoi du prénom
-        lastname: formData.lastname,    // Envoi du nom
+        firstname: formData.firstname,
+        lastname: formData.lastname,
         email: formData.email,
         password: formData.password,
       });
       console.log("Registration successful:", response);
-      // Vous pouvez rediriger ou informer l'utilisateur ici
+      navigate("/");
     } catch (err) {
       console.error("Error during registration:", err);
       setError("Registration failed. Please try again.");
