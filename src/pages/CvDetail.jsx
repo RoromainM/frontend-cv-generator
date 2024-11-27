@@ -3,10 +3,9 @@ import { useParams } from 'react-router-dom';
 import { getCvById, getRecommendationsForCV } from '../service/backendFetch';
 
 const CvDetail = () => {
-  const { id } = useParams();
-  const [cv, setCv] = useState(null);
-  const [recommendations, setRecommendations] = useState([]);
-  const [loading, setLoading] = useState(true);
+const { id } = useParams();
+const [cv, setCv] = useState(null);
+const [v_recommendations, setRecommendations] = useState([]);
 const [error, setError] = useState(null);
 
 useEffect(() => {
@@ -19,8 +18,6 @@ useEffect(() => {
       setRecommendations(recData);
     } catch (err) {
       setError(err.message);  // Capture l'erreur et l'affiche
-    } finally {
-      setLoading(false);  // Fin du chargement
     }
   };
 
@@ -60,7 +57,7 @@ useEffect(() => {
       <h3>Recommendations</h3>
       {recommendations.length > 0 ? (
         <ul>
-          {recommendations.map((rec) => (
+          {v_recommendations.map((rec) => (
             <li key={rec._id}>
               <strong>{rec.author.firstname} {rec.author.lastname}:</strong> {rec.content}
             </li>
