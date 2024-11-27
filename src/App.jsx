@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Home from './pages/Home'
+import CvForm from './pages/cvForm'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/cv/:id" element={<CvDetail />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/create/cv" element={<CvForm />} />
       </Routes>
     </div>
   )
