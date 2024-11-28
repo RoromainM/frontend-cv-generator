@@ -8,6 +8,7 @@ import Register from "./pages/register";
 import Login from "./pages/login";
 import Home from './pages/Home'
 import CvForm from './pages/cvForm'
+import { UserCvList } from './pages/UserCvList'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create/cv" element={<CvForm />} />
+        <Route path="/userCv" element={<UserCvList />} />
       </Routes>
     </div>
   )
