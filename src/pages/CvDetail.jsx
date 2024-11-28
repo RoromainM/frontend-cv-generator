@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCvById, getRecommendationsForCV, createRecommendation  } from '../service/backendFetch';
+import { getCvById, getRecommendationsForCV, createRecommendation, deleteRecommendation  } from '../service/backendFetch';
 import { AuthContext } from "../context/AuthContext";
 import FormInput from '../components/FormInput'; 
 
@@ -9,18 +9,15 @@ const { id } = useParams();
 const [cv, setCv] = useState(null);
 const [v_recommendations, setRecommendations] = useState([]);
 const [error, setError] = useState(null);
-const { v_isConnected } = useContext(AuthContext);
+const { v_isConnected, user } = useContext(AuthContext);
 const [newRecommendation, setNewRecommendation] = useState("");
+const [v_CvOwner, setCvOwner] = useState("");
 
 useEffect(() => {
   const fetchCvDetails = async () => {
     try {
-      if (v_isConnected === undefined) {
-      } else {
-        console.log(v_isConnected);
-      }
-
       const cvData = await getCvById(id);
+      setCvOwner(cvData.user);
       setCv(cvData);
 
       const recData = await getRecommendationsForCV(id);
@@ -54,6 +51,18 @@ const handleRecommendationSubmit = async (e) => {
     console.error("Erreur lors de l'ajout de la recommandation:", error);
   }
 };
+
+const handleDeleteRecommendation = async (id) => {
+  if (window.confirm("Are you sure you want to delete this recommendation?")) {
+    try {
+      await deleteRecommendation(id);
+      setRecommendations((prev) => prev.filter((rec) => rec._id !== id));
+    } catch (error) {
+      console.error("Failed to delete recommendation:", error);
+    }
+  }
+};
+
 
   if (!cv) {
     return <p>Loading CV...</p>;
@@ -108,7 +117,42 @@ const handleRecommendationSubmit = async (e) => {
         <ul>
           {v_recommendations.map((rec) => (
             <li key={rec._id}>
-              <strong>{rec.author?.firstname || "Unknown"} {rec.author?.lastname || "Unknown"}:</strong> {rec.content}
+              {rec.author ? (
+                <strong>
+                  {rec.author.firstname || "Unknown"} {rec.author.lastname || "Unknown"}:
+                </strong>
+              ) : (
+                <strong>Unknown Author:</strong>
+              )} 
+              {rec.content}
+              {v_isConnected && (
+                (user.userId === rec.author?._id || user.userId === v_CvOwner) && (
+                  <span style={{ marginLeft: "10px" }}>
+                    <button onClick={() => handleEditRecommendation(rec)}
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                        color: "blue",
+                      }}>
+                      ✏️
+                    </button>
+  
+                    <button
+                      onClick={() => handleDeleteRecommendation(rec._id)}
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                        color: "red",
+                        marginLeft: "5px"
+                      }}>
+                      🗑️
+                    </button>
+                  </span>
+                )
+              )}
+              
             </li>
           ))}
         </ul>
