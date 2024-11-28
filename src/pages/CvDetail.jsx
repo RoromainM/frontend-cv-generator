@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCvById, getRecommendationsForCV, createRecommendation, deleteRecommendation, updateRecommandation  } from '../service/backendFetch';
+import { getCvById, getRecommendationsForCV, createRecommendation, deleteRecommendation, updateRecommandation, deleteCv } from '../service/backendFetch';
 import { AuthContext } from "../context/AuthContext";
 import FormInput from '../components/FormInput'; 
 import '../pagesCss/CvDetail.css';  // Chemin du fichier CSS
@@ -98,6 +98,52 @@ const handleSaveRecommendation = async (e) => {
   }
 };
 
+handleDeleteCv = async (id) => {
+  if (window.confirm("Are you sure you want to delete this CV?")) {
+    try {
+      await deleteCv(id);
+      history.push("/userCv");
+    } catch (error) {
+      console.error("Failed to delete CV:", error);
+    }
+  }
+};
+
+handleEditCv = async (id) => {
+  const updatedCv = {
+    information: {
+      name: "Updated Name",
+      description: "Updated Description",
+    },
+  };
+
+  try {
+    const response = await updateCv(id, updatedCv);
+    setCv(response);
+    console.log("CV updated successfully:", response);
+  } catch (error) {
+    console.error("Failed to update CV:", error);
+  }
+};
+
+handleSaveCv = async (id) => {
+  const updatedCv = {
+    information: {
+      name: "Updated Name",
+      description: "Updated Description",
+    },
+  };
+
+  try {
+    const response = await updateCv(id, updatedCv);
+    setCv(response);
+    console.log("CV updated successfully:", response);
+  }
+  catch (error) {
+    console.error("Failed to update CV:", error);
+  }
+};
+
 
 
   if (!cv) {
@@ -106,6 +152,7 @@ const handleSaveRecommendation = async (e) => {
 
   return (
     <div>
+      {/* 
       <h1>{cv.information.name}</h1>
       <p>{cv.information.description}</p>
 
@@ -127,7 +174,21 @@ const handleSaveRecommendation = async (e) => {
         ))}
       </ul>
 
-      <p><strong>Visibility:</strong> {cv.visibilite ? 'Visible' : 'Hidden'}</p> 
+      <p><strong>Visibility:</strong> {cv.visibilite ? 'Visible' : 'Hidden'}</p>  
+      */}
+      {v_isConnected && (
+        (user.userId === rec.author?._id || user.userId === v_CvOwner) && (
+          <div className="actionButtons">
+            <button onClick={() => handleEditCv(cv._id)} className="editButton">
+              ✏️ Edit CV
+            </button>
+            <button onClick={() => handleDeleteCv(cv._id)} className="deleteButton">
+              🗑️ Delete CV
+            </button>
+          </div>
+        )
+      )}
+
 
       {v_isConnected && (
         <div style={{ marginBottom: '20px' }}>
