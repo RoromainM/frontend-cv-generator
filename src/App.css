@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 .navbar {
@@ -162,4 +163,10 @@
 
 .cv-detail p strong {
   color: #222;
+}
+
+.gap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
