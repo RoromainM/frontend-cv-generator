@@ -3,15 +3,13 @@ import { AuthContext } from '../context/AuthContext';
 import { getRecommendationsForUser } from '../service/backendFetch';
 
 const UserRecommendation = () => {
-    const { user, v_isConnected } = useContext(AuthContext); // useContext ici
+    const { user, v_isConnected } = useContext(AuthContext);
     const [recommendations, setRecommendations] = useState([]);
     const [error, setError] = useState(null);
   
-    // On s'assure que le hook useEffect est toujours appelé dans le même ordre
     useEffect(() => {
-      // Si l'utilisateur n'est pas connecté, ne pas faire de requêtes
       if (!v_isConnected) {
-        setRecommendations([]); // Ou tout autre comportement souhaité
+        setRecommendations([]);
         return;
       }
   
@@ -19,14 +17,14 @@ const UserRecommendation = () => {
         try {
           const recData = await getRecommendationsForUser();
           console.log(recData);
-          setRecommendations(recData); // Mettre à jour l'état avec les recommandations
+          setRecommendations(recData);
         } catch (err) {
-          setError(err.message); // Gérer les erreurs
+          setError(err.message);
         }
       };
   
       fetchRecommendations();
-    }, [v_isConnected]); // On inclut toutes les variables de dépendance nécessaires
+    }, [v_isConnected]);
   
     return (
       <div>
