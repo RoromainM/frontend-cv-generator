@@ -17,6 +17,7 @@ export const Navbar = () => {
               <div className='gap'>
                 <NavLink to="/create/cv" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Create CV</NavLink>
                 <NavLink to="/userCv" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>My CV</NavLink>
+                <NavLink to="/userRecommandation" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>My Recommandations</NavLink>
               </div>
             )}
           </div>
