@@ -50,7 +50,7 @@ export const registerUser = (userData) =>
         "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
-    });
+});
 
 export const loginUser = (userData) =>
     apiRequest("auth/login", {
@@ -81,5 +81,17 @@ export const createRecommendation = async (recommendationData) => {
         },
         body: JSON.stringify(recommendationData),
     });
-  };
+};
+
+
+export const deleteRecommendation = async (p_id) => {
+    const token = localStorage.getItem("token");
+    apiRequest(`/recommandation/${p_id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        }
+    })
+}
   
