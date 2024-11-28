@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCvById, getRecommendationsForCV, createRecommendation, deleteRecommendation  } from '../service/backendFetch';
+import { getCvById, getRecommendationsForCV, createRecommendation, deleteRecommendation, updateRecommandation  } from '../service/backendFetch';
 import { AuthContext } from "../context/AuthContext";
 import FormInput from '../components/FormInput'; 
+import '../pagesCss/CvDetail.css';  // Chemin du fichier CSS
 
 const CvDetail = () => {
 const { id } = useParams();
@@ -12,6 +13,8 @@ const [error, setError] = useState(null);
 const { v_isConnected, user } = useContext(AuthContext);
 const [newRecommendation, setNewRecommendation] = useState("");
 const [v_CvOwner, setCvOwner] = useState("");
+const [editingRec, setEditingRec] = useState(null);
+const [updatedContent, setUpdatedContent] = useState("");
 
 useEffect(() => {
   const fetchCvDetails = async () => {
@@ -63,6 +66,39 @@ const handleDeleteRecommendation = async (id) => {
   }
 };
 
+const handleEditRecommendation = (rec) => {
+  setEditingRec(rec._id);
+  setUpdatedContent(rec.content);
+};
+
+const handleSaveRecommendation = async (e) => {
+  e.preventDefault();
+
+  if (updatedContent.trim() === "") {
+    return;
+  }
+
+  try {
+    const updatedRecommendation = await updateRecommandation(editingRec, {
+      CVNote: id,
+      content: updatedContent,
+    });
+
+    console.log("Recommandation mise à jour :", updatedRecommendation);
+
+    const updatedRecommendations = v_recommendations.map((rec) =>
+      rec._id === editingRec ? { ...rec, content: updatedContent } : rec
+    );
+    setRecommendations(updatedRecommendations);
+
+    setEditingRec(null);
+    setUpdatedContent("");
+  } catch (error) {
+    console.error("Erreur lors de la modification :", error);
+  }
+};
+
+
 
   if (!cv) {
     return <p>Loading CV...</p>;
@@ -112,54 +148,80 @@ const handleDeleteRecommendation = async (id) => {
         </div>
       )}
 
-      <h3>Recommendations</h3>
-      {v_recommendations.length > 0 ? (
-        <ul>
-          {v_recommendations.map((rec) => (
-            <li key={rec._id}>
-              {rec.author ? (
-                <strong>
-                  {rec.author.firstname || "Unknown"} {rec.author.lastname || "Unknown"}:
-                </strong>
-              ) : (
-                <strong>Unknown Author:</strong>
-              )} 
-              {rec.content}
+    <h3>Recommendations</h3>
+    {v_recommendations.length > 0 ? (
+      <ul>
+        {v_recommendations.map((rec) => (
+          <li key={rec._id}>
+            {rec.author ? (
+              <strong>
+                {rec.author.firstname || "Unknown"} {rec.author.lastname || "Unknown"}:
+              </strong>
+            ) : (
+              <strong>Unknown Author:</strong>
+            )}
+
+            <span>
+              <span>
+                {editingRec === rec._id ? (
+                  <span
+                    contentEditable
+                    suppressContentEditableWarning={true}
+                    className="editableContent"
+                    onBlur={(e) => setUpdatedContent(e.target.innerText)}
+                    dangerouslySetInnerHTML={{ __html: rec.content }}
+                  />
+                ) : (
+                  <span>{rec.content}</span>
+                )}
+              </span>
+
               {v_isConnected && (
                 (user.userId === rec.author?._id || user.userId === v_CvOwner) && (
-                  <span style={{ marginLeft: "10px" }}>
-                    <button onClick={() => handleEditRecommendation(rec)}
-                      style={{
-                        background: "transparent",
-                        border: "none",
-                        cursor: "pointer",
-                        color: "blue",
-                      }}>
-                      ✏️
-                    </button>
-  
+                  <span className="actionButtons">
+                    {user.userId === rec.author?._id ? (
+                      editingRec === rec._id ? (
+                        <span>
+                          <button
+                            onClick={handleSaveRecommendation}
+                            className="saveButton"
+                          >
+                            💾 Save
+                          </button>
+                          <button
+                            onClick={() => setEditingRec(null)}
+                            className="cancelButton"
+                          >
+                            ❌ Cancel
+                          </button>
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleEditRecommendation(rec)}
+                          className="editButton"
+                        >
+                          ✏️
+                        </button>
+                      )
+                    ) : null}
+
                     <button
                       onClick={() => handleDeleteRecommendation(rec._id)}
-                      style={{
-                        background: "transparent",
-                        border: "none",
-                        cursor: "pointer",
-                        color: "red",
-                        marginLeft: "5px"
-                      }}>
+                      className="deleteButton"
+                    >
                       🗑️
                     </button>
                   </span>
                 )
               )}
-              
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No recommendations available for this CV.</p>
-      )}   
-
+            </span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No recommendations available for this CV.</p>
+    )}
+  
     </div>
   );
 };
