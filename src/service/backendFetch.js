@@ -71,7 +71,7 @@ export const getRecommendationsForCV = (CVNoteId) =>
     apiRequest(`recommandation/${CVNoteId}`);
     
 
-export const createRecommendation = async (recommendationData) => {
+export const createRecommendation = async (p_recommandationData) => {
     const token = localStorage.getItem("token");
     apiRequest("/recommandation", {
         method: "POST",
@@ -79,7 +79,7 @@ export const createRecommendation = async (recommendationData) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(recommendationData),
+        body: JSON.stringify(p_recommandationData)
     });
 };
 
@@ -93,5 +93,16 @@ export const deleteRecommendation = async (p_id) => {
             Authorization: `Bearer ${token}`,
         }
     })
-}
-  
+};
+
+export const updateRecommandation = async (p_id, p_recommandationData) => {
+    const token = localStorage.getItem("token");
+    apiRequest(`/recommandation/${p_id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(p_recommandationData)
+    })
+};
