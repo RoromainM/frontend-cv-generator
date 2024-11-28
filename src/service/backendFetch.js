@@ -98,7 +98,7 @@ export const deleteRecommendation = async (p_id) => {
 export const updateRecommandation = async (p_id, p_recommandationData) => {
     const token = localStorage.getItem("token");
     apiRequest(`/recommandation/${p_id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
@@ -106,3 +106,14 @@ export const updateRecommandation = async (p_id, p_recommandationData) => {
         body: JSON.stringify(p_recommandationData)
     })
 };
+
+export const getRecommendationsForUser = async () => {
+    const token = localStorage.getItem("token");
+    return apiRequest("recommandation", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    });
+}

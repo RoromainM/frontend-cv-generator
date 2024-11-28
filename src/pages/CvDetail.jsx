@@ -45,8 +45,6 @@ const handleRecommendationSubmit = async (e) => {
       CVNote: id,           
       content: newRecommendation,
     });
-    console.log(id);
-    console.log('data : ' + data);
     setRecommendations([data, ...v_recommendations]);
     setNewRecommendation("");
     window.location.reload();
@@ -83,8 +81,6 @@ const handleSaveRecommendation = async (e) => {
       CVNote: id,
       content: updatedContent,
     });
-
-    console.log("Recommandation mise à jour :", updatedRecommendation);
 
     const updatedRecommendations = v_recommendations.map((rec) =>
       rec._id === editingRec ? { ...rec, content: updatedContent } : rec
