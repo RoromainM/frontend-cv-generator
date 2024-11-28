@@ -1,0 +1,50 @@
+.editableContent {
+    border: 1px solid #ccc;
+    padding: 5px;
+    display: inline-block;
+    min-width: 200px;
+  }
+  
+  .actionButtons {
+    margin-left: 10px;
+  }
+  
+  .saveButton,
+  .cancelButton {
+    background-color: white;
+    color: blue;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
+  
+  .saveButton {
+    color: blue;
+  }
+  
+  .cancelButton {
+    color: red;
+  }
+  
+  .editButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: blue;
+  }
+  
+  .deleteButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: red;
+    margin-left: 5px;
+  }
+  
+  .recommendationText {
+    cursor: pointer;
+    color: blue;
+  }
+  
