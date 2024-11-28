@@ -6,7 +6,8 @@ const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
-
+    const [v_isConnected, setConnectionState] = useState(false);
+    
     const decodeToken = (jwtToken) => {
         try {
             return jwtDecode(jwtToken);
@@ -22,6 +23,7 @@ const AuthProvider = ({ children }) => {
             const decodedUser = decodeToken(storedToken);
             setToken(storedToken);
             setUser(decodedUser);
+            setConnectionState(true);
         }
     }, []);
 
@@ -30,6 +32,7 @@ const AuthProvider = ({ children }) => {
         const decodedUser = decodeToken(value.token);
         setToken(value.token);
         setUser(decodedUser);
+        setConnectionState(true);
     };
 
     const logout = () => {
@@ -37,6 +40,7 @@ const AuthProvider = ({ children }) => {
         setToken(null);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        setConnectionState(false);
     };
 
     return (
@@ -44,6 +48,7 @@ const AuthProvider = ({ children }) => {
             value={{
                 user,
                 token,
+                v_isConnected,
                 login,
                 logout,
             }}
