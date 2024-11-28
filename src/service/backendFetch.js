@@ -106,3 +106,14 @@ export const updateRecommandation = async (p_id, p_recommandationData) => {
         body: JSON.stringify(p_recommandationData)
     })
 };
+
+export const getRecommendationsForUser = async () => {
+    const token = localStorage.getItem("token");
+    return apiRequest("recommandation", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    });
+}

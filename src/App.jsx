@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import CvForm from './pages/cvForm'
 import AllCvList from './pages/AllCvList';
 import UserCvList from './pages/UserCvList';
+import UserRecommendation from './pages/UserRecommandation';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/create/cv" element={<CvForm />} />
         <Route path="/userCv" element={<UserCvList />} />
+        <Route path="/userRecommandation" element={<UserRecommendation/>}/>
       </Routes>
     </div>
   )
