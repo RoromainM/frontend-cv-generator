@@ -1,7 +1,5 @@
-import './App.css'
-import { Route, Routes, Link } from 'react-router-dom'
-import { Navbar } from './components/navbar'
-import CvDetails from './pages/CvDetails'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./pages/register";
 import Login from "./pages/login";
