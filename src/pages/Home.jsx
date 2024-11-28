@@ -6,7 +6,7 @@ const Home = () => {
 
   if (!user) return <p>Please log in to view your profile.</p>;
 
-  return <div>Welcome, {user.email}!</div>;
+  return <div>Welcome, {user.userId}!</div>;
 };
 
 export default Home;
