@@ -1,5 +1,5 @@
-//const BASE_URL = "https://backend-cv-generator.onrender.com/api";
-const BASE_URL = "http://localhost:3000/api"
+const BASE_URL = "https://backend-cv-generator.onrender.com/api";
+// const BASE_URL = "http://localhost:3000/api"
 
 // Fonction générique pour les appels API
 const apiRequest = async (endpoint, options = {}) => {
