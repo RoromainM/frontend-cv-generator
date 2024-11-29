@@ -20,6 +20,9 @@ export const getCvs = () => apiRequest("cv");
 
 export const getCvById = (id) => apiRequest(`cv/${id}`);
 
+export const getVisibleCvs = () => apiRequest("cv/visible");
+
+
 export const createCv = (cvData) =>
     apiRequest("cv", {
         method: "POST",

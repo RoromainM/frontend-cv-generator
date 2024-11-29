@@ -6,11 +6,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Home from './pages/Home'
-import CvForm from './pages/cvForm'
 import AllCvList from './pages/AllCvList';
 import UserCvList from './pages/UserCvList';
 import UserRecommendation from './pages/UserRecommandation';
 import CvDetail from './components/cvDetail';
+import CvForm from './pages/CvForm';
 
 function App() {
 
