@@ -1,0 +1,53 @@
+.editableContent {
+    border: 2px solid #007bff;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+  
+button {
+    background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+  
+button:hover {
+    background-color: #007bff;
+    color: white;
+}
+  
+.actionButtons {
+    margin-top: 15px;
+}
+  
+.saveButton,
+.cancelButton {
+    margin-right: 10px;
+}
+  
+.deleteButton {
+    background-color: #ff4d4f;
+    color: white;
+    border-radius: 5px;
+    margin: 2px;
+}
+  
+.deleteButton:hover {
+    background-color: #d32f2f;
+}
+  
+.editButton {
+    background-color: #ff9800;
+    color: white;
+    border-radius: 5px;
+    margin: 2px;
+}
+  
+.editButton:hover {
+    background-color: #f57c00;
+}
+  

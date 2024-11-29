@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getCvById, getRecommendationsForCV, createRecommendation, deleteRecommendation, updateRecommandation  } from '../service/backendFetch';
 import { AuthContext } from "../context/AuthContext";
 import FormInput from '../components/FormInput'; 
-import '../pagesCss/CvDetail.css';
+import '../pagesCss/CvRecommandation.css';
 
 const CvRecommendations = () => {
     const { id } = useParams();
