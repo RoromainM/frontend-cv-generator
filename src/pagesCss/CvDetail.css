@@ -1,50 +1,78 @@
-.editableContent {
-    border: 1px solid #ccc;
-    padding: 5px;
-    display: inline-block;
-    min-width: 200px;
-  }
-  
-  .actionButtons {
-    margin-left: 10px;
-  }
-  
-  .saveButton,
-  .cancelButton {
-    background-color: white;
-    color: blue;
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 5px;
-  }
-  
-  .saveButton {
-    color: blue;
-  }
-  
-  .cancelButton {
-    color: red;
-  }
-  
-  .editButton {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: blue;
-  }
-  
-  .deleteButton {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: red;
-    margin-left: 5px;
-  }
-  
-  .recommendationText {
-    cursor: pointer;
-    color: blue;
-  }
-  
+.recommendation-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.recommendation-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.recommendation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.recommendation-item {
+  background-color: #ffffff;
+  border: 2px solid #cccccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.recommendation-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.recommendation-author {
+  font-size: 22px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.recommendation-content {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+  margin-left: 40px;
+  margin-bottom: 15px;
+}
+
+.recommendation-cv-name {
+  font-size: 18px;
+  color: #555;
+  font-weight: bold;
+  border-top: 2px solid #cccccc;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.no-recommendations {
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+  font-style: italic;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}

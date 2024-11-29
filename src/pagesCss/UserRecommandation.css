@@ -1,0 +1,64 @@
+.recommendation-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recommendation-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 30px;
+}
+
+.recommendation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0;
+}
+
+.recommendation-item {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recommendation-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.recommendation-author {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0078d4;
+    margin-bottom: 10px;
+}
+
+.recommendation-content {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.recommendation-cv-name {
+    font-size: 14px;
+    color: #888;
+    font-style: italic;
+}
+
+.no-recommendations {
+    text-align: center;
+    font-size: 16px;
+    color: #999;
+}
