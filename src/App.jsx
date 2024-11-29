@@ -13,6 +13,10 @@ import Swagger from './pages/Swagger';
 
 
 import CvDetail from './components/cvDetail';
+import Profileuser from './pages/Profileuser';
+import Swagger from './pages/Swagger';
+
+
 
 function App() {
 
@@ -32,6 +36,9 @@ function App() {
         <Route path="/swagger" element={<Swagger/>} />
 
         <Route path="/test/:id" element={<CvDetail/>}/>
+        <Route path="/profile" element={<Profileuser/>} />
+        <Route path="/swagger" element={<Swagger/>} />
+
       </Routes>
     </div>
   )
