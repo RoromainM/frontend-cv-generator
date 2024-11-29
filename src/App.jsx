@@ -9,6 +9,10 @@ import AllCvList from './pages/AllCvList';
 import UserCvList from './pages/UserCvList';
 import UserRecommendation from './pages/UserRecommandation';
 import CvDetail from './components/cvDetail';
+import Profileuser from './pages/Profileuser';
+import Swagger from './pages/Swagger';
+
+
 
 function App() {
 
@@ -25,6 +29,9 @@ function App() {
         <Route path="/userCv" element={<UserCvList />} />
         <Route path="/userRecommandation" element={<UserRecommendation/>}/>
         <Route path="/test/:id" element={<CvDetail/>}/>
+        <Route path="/profile" element={<Profileuser/>} />
+        <Route path="/swagger" element={<Swagger/>} />
+
       </Routes>
     </div>
   )
