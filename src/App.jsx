@@ -10,6 +10,10 @@ import CvForm from './pages/cvForm'
 import AllCvList from './pages/AllCvList';
 import UserCvList from './pages/UserCvList';
 import UserRecommendation from './pages/UserRecommandation';
+import Profileuser from './pages/Profileuser';
+import Swagger from './pages/Swagger';
+
+
 
 function App() {
 
@@ -25,6 +29,9 @@ function App() {
         <Route path="/create/cv" element={<CvForm />} />
         <Route path="/userCv" element={<UserCvList />} />
         <Route path="/userRecommandation" element={<UserRecommendation/>}/>
+        <Route path="/profile" element={<Profileuser/>} />
+        <Route path="/swagger" element={<Swagger/>} />
+
       </Routes>
     </div>
   )
