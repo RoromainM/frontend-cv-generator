@@ -47,6 +47,7 @@ Built With
 React
 Vite 
 
-#Huu-Nghia TRAN
-#Romain MONMARCHE
-#HADDOUCHE Othmane
+Participants :
+- Huu-Nghia TRAN
+- Romain MONMARCHE
+- HADDOUCHE Othmane
