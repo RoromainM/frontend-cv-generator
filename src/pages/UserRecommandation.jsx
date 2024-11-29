@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getRecommendationsForUser } from '../service/backendFetch';
+import '/src/pagesCss/UserRecommandation.css';
 
 const UserRecommendation = () => {
     const { user, v_isConnected } = useContext(AuthContext);
