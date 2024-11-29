@@ -31,7 +31,7 @@ export const createCv = (cvData) =>
 
 export const updateCv = (id, updatedData) =>
     apiRequest(`cv/${id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
         "Content-Type": "application/json",
         },
