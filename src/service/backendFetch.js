@@ -29,19 +29,29 @@ export const createCv = (cvData) =>
         body: JSON.stringify(cvData),
     });
 
-export const updateCv = (id, updatedData) =>
-    apiRequest(`cv/${id}`, {
+export const updateCv = async (id, updatedData) => {
+    const token = localStorage.getItem("token");
+    return apiRequest(`cv/${id}`, {
         method: "PATCH",
         headers: {
-        "Content-Type": "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(updatedData),
     });
+};
+    
 
-export const deleteCv = (id) =>
-    apiRequest(`cv/${id}`, {
+export const deleteCv = async (id) => {
+    const token = localStorage.getItem("token");
+    return apiRequest(`cv/${id}`, {
         method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     });
+};
+
 
 export const registerUser = (userData) =>
     apiRequest("auth/register", {

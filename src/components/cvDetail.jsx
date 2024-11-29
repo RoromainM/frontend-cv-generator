@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getCvById, updateCv, deleteCv } from '../service/backendFetch';
 import { AuthContext } from '../context/AuthContext';
-import FormInput from '../components/FormInput'; 
-import '../pagesCss/CvDetail.css';
+import FormInput from '../components/FormInput';
 
 const CvDetail = () => {
   const { id } = useParams();
   const [cv, setCv] = useState(null);
   const [updatedCv, setUpdatedCv] = useState(null);
   const [editingCv, setEditingCv] = useState(false);
-  const { v_isConnected } = useContext(AuthContext);
+  const { v_isConnected, user } = useContext(AuthContext);
+  const [v_CvOwner, setCvOwner] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,11 +31,13 @@ const CvDetail = () => {
     setEditingCv(true);
   };
 
-  const handleSaveCv = async () => {
+  const handleSaveCv = async (e) => {
+    e.preventDefault();
     try {
       const updatedData = await updateCv(cv._id, updatedCv);
       setCv(updatedData);
       setEditingCv(false);
+
       window.location.reload();
     } catch (error) {
       console.error('Failed to update CV:', error);
@@ -48,21 +50,20 @@ const CvDetail = () => {
   };
 
   const handleDeleteCv = async () => {
-    try {
-      const confirmDelete = window.confirm('Are you sure you want to delete this CV?');
-      if (confirmDelete) {
+    if (window.confirm("Are you sure you want to delete this CV?")) {
+      try {
         await deleteCv(cv._id);
         navigate('/userCv');
+      } catch (error) {
+        console.error("Failed to delete CV:", error);
       }
-    } catch (error) {
-      console.error('Failed to delete CV:', error);
     }
   };
 
   const addEducation = () => {
     setUpdatedCv((prev) => ({
       ...prev,
-      education: [...prev.education, { degree: "", institution: "", year: "" }],
+      education: [...prev.education, { degree: '', institution: '', year: '' }],
     }));
   };
 
@@ -77,7 +78,7 @@ const CvDetail = () => {
   const addExperience = () => {
     setUpdatedCv((prev) => ({
       ...prev,
-      experience: [...prev.experience, { role: "", company: "", description: "" }],
+      experience: [...prev.experience, { role: '', company: '', description: '' }],
     }));
   };
 
@@ -93,11 +94,15 @@ const CvDetail = () => {
     return <p>Loading CV...</p>;
   }
 
+  console.log("Cv user id", cv.user);
+  console.log("id connected user", user.userId);
+  
+
   return (
     <div>
       {editingCv ? (
         <div>
-          {/* Formulaire d'édition */}
+          {/* Form to edit the CV */}
           <FormInput
             label="Name"
             type="text"
@@ -223,28 +228,15 @@ const CvDetail = () => {
           </ul>
           <button type="button" onClick={addExperience}>Add Experience</button>
 
-          <p>
-            <strong>Visibility:</strong>
-            <select
-              value={updatedCv?.visibilite || ''}
-              onChange={(e) =>
-                setUpdatedCv((prev) => ({
-                  ...prev,
-                  visibilite: e.target.value === 'true',
-                }))
-              }
-            >
-              <option value="true">Visible</option>
-              <option value="false">Hidden</option>
-            </select>
-          </p>
+          <br />
+          <br />
 
           <button onClick={handleSaveCv}>Save</button>
           <button onClick={handleCancelEdit}>Cancel</button>
         </div>
       ) : (
         <div>
-          {/* Affichage du CV */}
+          {/* CV details view */}
           <h1>{cv.information?.name || 'No name available'}</h1>
           <p>{cv.information?.description || 'No description available'}</p>
 
@@ -270,13 +262,27 @@ const CvDetail = () => {
             <strong>Visibility:</strong> {cv.visibilite ? 'Visible' : 'Hidden'}
           </p>
 
-          {v_isConnected && (
-            <>
-              <button onClick={handleEditCv}>Edit CV</button>
-              <button onClick={handleDeleteCv} style={{ backgroundColor: 'red', color: 'white' }}>
-                Delete CV
+          {v_isConnected && user.userId === cv.user && (
+            <span className="actionButtonsCv">
+              {editingCv ? (
+                <span>
+                  <button onClick={handleSaveCv} className="saveButton">
+                    💾 Save
+                  </button>
+                  <button onClick={handleCancelEdit} className="cancelButton">
+                    ❌ Cancel
+                  </button>
+                </span>
+              ) : (
+                <button onClick={handleEditCv} className="editButton">
+                  ✏️ Edit CV
+                </button>
+              )}
+              
+              <button onClick={handleDeleteCv} className="deleteButton">
+                🗑️ Delete CV
               </button>
-            </>
+            </span>
           )}
         </div>
       )}

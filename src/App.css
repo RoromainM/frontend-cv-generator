@@ -174,3 +174,8 @@
 .search-bar {
   margin-bottom: 10px;
 }
+
+.buttonContainer {
+  margin-top: 10px;
+  gap: 10px;
+}
